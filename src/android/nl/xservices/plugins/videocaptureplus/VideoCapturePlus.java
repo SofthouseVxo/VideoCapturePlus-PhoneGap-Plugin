@@ -40,7 +40,7 @@ public class VideoCapturePlus extends CordovaPlugin {
   private static final String LOG_TAG = "VideoCapturePlus";
   private static final int CAPTURE_NO_MEDIA_FILES = 3;
 
-  protected final static String[] permissions = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+  protected final static String[] permissions = { Manifest.permission.RECORD_VIDEO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
 
   private CallbackContext callbackContext;        // The callback context from which we were invoked.
   private long limit;                             // the number of pics/vids/clips to take
