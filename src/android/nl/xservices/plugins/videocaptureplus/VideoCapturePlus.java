@@ -40,7 +40,7 @@ public class VideoCapturePlus extends CordovaPlugin {
   private static final String LOG_TAG = "VideoCapturePlus";
   private static final int CAPTURE_NO_MEDIA_FILES = 3;
 
-  protected final static String[] permissions = { Manifest.permission.RECORD_VIDEO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+  protected final static String[] permissions = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
 
   private CallbackContext callbackContext;        // The callback context from which we were invoked.
   private long limit;                             // the number of pics/vids/clips to take
@@ -141,9 +141,9 @@ public class VideoCapturePlus extends CordovaPlugin {
   */
   public void callCaptureVideo(int duration, boolean highquality, boolean frontcamera) {
     boolean readPermission = PermissionHelper.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-    boolean recordVideoPermission = PermissionHelper.hasPermission(this, Manifest.permission.RECORD_VIDEO);
+    boolean recordVideoPermission = PermissionHelper.hasPermission(this, Manifest.permission.CAMERA);
 
-      // CB-10120: The RECORD_VIDEO permission does not need to be requested unless it is declared
+      // CB-10120: The CAMERA permission does not need to be requested unless it is declared
       // in AndroidManifest.xml. This plugin does not declare it, but others may and so we must
       // check the package info to determine if the permission is present.
 
@@ -154,7 +154,7 @@ public class VideoCapturePlus extends CordovaPlugin {
         String[] permissionsInPackage = packageManager.getPackageInfo(this.cordova.getActivity().getPackageName(), PackageManager.GET_PERMISSIONS).requestedPermissions;
         if (permissionsInPackage != null) {
           for (String permission : permissionsInPackage) {
-            if (permission.equals(Manifest.permission.RECORD_VIDEO)) {
+            if (permission.equals(Manifest.permission.CAMERA)) {
               recordVideoPermission = false;
               break;
             }
@@ -169,7 +169,7 @@ public class VideoCapturePlus extends CordovaPlugin {
     if (recordVideoPermission && readPermission) {
       callCaptureVideo(duration, highquality, frontcamera);
     } else if (readPermission && !recordVideoPermission) {
-      PermissionHelper.requestPermission(this, CAPTURE_VIDEO, Manifest.permission.RECORD_VIDEO);
+      PermissionHelper.requestPermission(this, CAPTURE_VIDEO, Manifest.permission.CAMERA);
     } else if (!readPermission && recordVideoPermission) {
       PermissionHelper.requestPermission(this, CAPTURE_VIDEO, Manifest.permission.READ_EXTERNAL_STORAGE);
     } else {
