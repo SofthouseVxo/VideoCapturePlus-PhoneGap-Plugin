@@ -53,8 +53,6 @@
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.RECORD_AUDIO" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-            <uses-permission android:name="android.permission.CAMERA" />
-
             <provider
                     android:name="android.support.v4.content.FileProvider"
                     android:authorities="nl.x-services.plugins.videocaptureplus.provider"
